@@ -5,7 +5,9 @@
         <Header />
       </template>
       <template #main>
-        <!-- <StudentList /> -->
+        <div class="container mx-auto mb-3">
+          <router-view />
+        </div>
       </template>
       <template #footer>
         <Footer />

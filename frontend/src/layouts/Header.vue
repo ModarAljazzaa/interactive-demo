@@ -1,41 +1,32 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-lg dark-header">
-      <div class="container">
-        <a class="navbar-brand" href="#">Your Logo</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  <div class="bg-white">
+    <header class="bg-white w-full shadow-md mb-3">
+      <nav class="container mx-auto px-6 py-3">
+        <div class="flex justify-between items-center">
+          <router-link
+            to="/"
+            class="text-2xl font-bold text-gray-800 hover:text-blue-600"
+            >Interactive Demo</router-link
+          >
 
-    <div class="container mt-3">
-      <router-view />
-    </div>
+          <div class="flex space-x-4">
+            <router-link to="/courses" class="text-gray-800 hover:text-blue-600"
+              >Courses</router-link
+            >
+            <router-link
+              to="/students"
+              class="text-gray-800 hover:text-blue-600"
+              >Students</router-link
+            >
+            <router-link
+              to="/create-student"
+              class="text-gray-800 hover:text-blue-600"
+              >Create Student</router-link
+            >
+          </div>
+        </div>
+      </nav>
+    </header>
   </div>
 </template>
 

@@ -23,5 +23,5 @@ public class StudentCreateDTO {
 
     @Email
     @NotBlank
-    private String emailId;
+    private String email;
 }

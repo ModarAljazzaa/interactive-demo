@@ -1,27 +1,40 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+import {
+  CourseList,
+  Course,
+  StudentList,
+  Student,
+  CreateStudent,
+} from "./components";
+
 const routes = [
   {
     path: "/",
     alias: "/courses",
     name: "courses-list",
-    component: () => import("./components/course/CourseList.vue"),
+    component: CourseList,
   },
   {
     path: "/courses/:id",
     name: "course-details",
-    component: () => import("./components/course/Course.vue"),
+    component: Course,
   },
 
   {
     path: "/students",
     name: "students-list",
-    component: () => import("./components/student/StudentList.vue"),
+    component: StudentList,
   },
   {
     path: "/students/:id",
     name: "student-details",
-    component: () => import("./components/student/Student.vue"),
+    component: Student,
+  },
+  {
+    path: "/create-student",
+    name: "create-student",
+    component: CreateStudent,
   },
 ];
 

@@ -19,4 +19,7 @@ public class Student {
 
     @Column(name = "lastName", nullable = false)
     private String lastName;
+
+    @Column(name = "email", nullable = false)
+    private String email;
 }
