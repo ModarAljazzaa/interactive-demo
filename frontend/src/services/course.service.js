@@ -1,32 +1,67 @@
 import axiosInstance from "../axiosConfig";
 
 class CourseService {
-  getAll() {
-    return axiosInstance.get("/courses");
+  async getAll() {
+    try {
+      const response = await axiosInstance.get("/courses");
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  get(id) {
-    return axiosInstance.get(`/courses/${id}`);
+  async get(id) {
+    try {
+      const response = await axiosInstance.get(`/courses/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  create(data) {
-    return axiosInstance.post("/courses", data);
+  async create(data) {
+    try {
+      const response = await axiosInstance.post("/courses", data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  update(id, data) {
-    return axiosInstance.put(`/courses/${id}`, data);
+  async update(id, data) {
+    try {
+      const response = await axiosInstance.put(`/courses/${id}`, data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  delete(id) {
-    return axiosInstance.delete(`/courses/${id}`);
+  async delete(id) {
+    try {
+      const response = await axiosInstance.delete(`/courses/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  deleteAll() {
-    return axiosInstance.delete(`/courses`);
+  async deleteAll() {
+    try {
+      const response = await axiosInstance.delete(`/courses`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findByTitle(title) {
-    return http.get(`/courses?title=${title}`);
+  async findByTitle(title) {
+    try {
+      const response = await axiosInstance.get(`/courses?title=${title}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

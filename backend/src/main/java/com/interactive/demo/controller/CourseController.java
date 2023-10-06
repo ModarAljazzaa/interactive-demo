@@ -21,7 +21,8 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CourseController {
 
 

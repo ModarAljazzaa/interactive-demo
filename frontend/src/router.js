@@ -3,9 +3,10 @@ import { createWebHistory, createRouter } from "vue-router";
 import {
   CourseList,
   Course,
+  EditCourse,
   StudentList,
   Student,
-  CreateStudent,
+  EditStudent,
 } from "./components";
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
     name: "course-details",
     component: Course,
   },
+  {
+    path: "/courses/edit/:id",
+    name: "edit-course-details",
+    component: EditCourse,
+  },
 
   {
     path: "/students",
@@ -32,9 +38,9 @@ const routes = [
     component: Student,
   },
   {
-    path: "/create-student",
-    name: "create-student",
-    component: CreateStudent,
+    path: "/students/edit/:id",
+    name: "edit-student-details",
+    component: EditStudent,
   },
 ];
 

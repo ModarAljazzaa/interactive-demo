@@ -1,4 +1,10 @@
 <template>
+  <button
+    @click="openCreateStudentModal"
+    class="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:hover:bg-green-700 dark:focus:ring-green-800 mb-3"
+  >
+    Create Student
+  </button>
   <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
     <thead
       class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
@@ -27,24 +33,23 @@
         </td>
 
         <td class="flex items-center px-4 py-3">
-          <button
-            @click="editStudent(student.id)"
-            class="flex items-center justify-center rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mr-2"
+          <router-link
+            :to="'/students/edit/' + student.id"
+            class="flex items-center justify-center rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-green-300 mr-2"
           >
             Edit
-          </button>
+          </router-link>
           <button
             @click="showConfirmDeleteModal(student)"
-            class="flex items-center justify-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mr-2"
+            class="flex items-center justify-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-green-300 mr-2"
           >
             Delete
           </button>
-          <button
-            @click="showStudent(student.id)"
-            class="flex items-center justify-center rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          <router-link
+            :to="'/students/' + student.id"
+            class="flex items-center justify-center rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300"
+            >Show</router-link
           >
-            Show
-          </button>
         </td>
       </tr>
     </tbody>
@@ -56,29 +61,36 @@
     @deleteRecordEvent="deleteStudent"
     @close="closeConfirmDeleteModal"
   ></confirm-delete>
+  <create-student
+    v-show="isCreateStudentVisible"
+    @close="closeCreateStudentModal"
+  ></create-student>
 </template>
 <script setup>
+import CreateStudent from "./CreateStudent.vue";
 import studentService from "../../services/student.service";
 import ConfirmDelete from "../ConfirmDeleteModel.vue";
 import { ref, onMounted } from "vue";
+import { useToast } from "vue-toast-notification";
 
+const toast = useToast();
 const students = ref([]);
 const currentUser = ref(null);
 const isConfirmDeleteModalVisible = ref(false);
+const isCreateStudentVisible = ref(false);
 const getAll = async () => {
   try {
     const response = await studentService.getAll();
-    return (students.value = response.data);
+    // console.log(response);
+    return (students.value = response);
   } catch (error) {
+    toast.error(error.message, {
+      position: "top-right",
+    });
     return console.error(error);
   }
 };
 
-const showConfirmDeleteModal = (student) => {
-  currentUser.value = student;
-  isConfirmDeleteModalVisible.value = true;
-  console.log("Student => ", student);
-};
 onMounted(() => {
   getAll();
 });
@@ -95,12 +107,28 @@ const deleteStudent = async () => {
     closeConfirmDeleteModal();
     getAll();
   } catch (error) {
+    toast.error(error.message, { position: "top-right" });
     return console.error(error);
   }
 };
 
+const showConfirmDeleteModal = (student) => {
+  currentUser.value = student;
+  isConfirmDeleteModalVisible.value = true;
+};
+
 const closeConfirmDeleteModal = () => {
   isConfirmDeleteModalVisible.value = false;
+  getAll();
+};
+
+const openCreateStudentModal = () => {
+  isCreateStudentVisible.value = true;
+};
+
+const closeCreateStudentModal = () => {
+  isCreateStudentVisible.value = false;
+  getAll();
 };
 
 const columns = [

@@ -8,7 +8,6 @@
           <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
 
-        <!-- This element is to trick the browser into centering the modal contents. -->
         <span
           class="hidden sm:inline-block sm:align-middle sm:h-screen"
           aria-hidden="true"
@@ -79,21 +78,18 @@
   </transition>
 </template>
 <script setup>
-name: "modal";
-
 const emit = defineEmits(["close", "deleteRecordEvent"]);
 
 const props = defineProps({
-  // model: { type: Object, required: true },
   modalHeadline: { type: String, required: true },
   deleteMessage: { type: String, required: true },
 });
 
-const close = (event) => {
+const close = () => {
   emit("close");
 };
 
-const deleteRecord = (event) => {
+const deleteRecord = () => {
   emit("deleteRecordEvent");
 };
 </script>

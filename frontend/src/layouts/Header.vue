@@ -18,11 +18,11 @@
               class="text-gray-800 hover:text-blue-600"
               >Students</router-link
             >
-            <router-link
+            <!-- <router-link
               to="/create-student"
               class="text-gray-800 hover:text-blue-600"
               >Create Student</router-link
-            >
+            > -->
           </div>
         </div>
       </nav>

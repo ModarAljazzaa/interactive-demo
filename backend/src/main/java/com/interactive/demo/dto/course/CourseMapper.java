@@ -2,9 +2,7 @@ package com.interactive.demo.dto.course;
 
 
 import com.interactive.demo.model.Course;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -19,6 +17,7 @@ public interface CourseMapper {
     CourseResponseDTO asCourseResponseDto(Course course);
 
     List<CourseResponseDTO> asResponseResponseDtoList(List<Course> courseList);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 
     Course asUpdatedCourse(CourseUpdateDTO course, @MappingTarget Course existingCourse);
 

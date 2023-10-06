@@ -1,9 +1,7 @@
 package com.interactive.demo.dto.student;
 
 import com.interactive.demo.model.Student;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -21,7 +19,7 @@ public interface StudentMapper {
     StudentResponseDTO asStudentResponseDto(Student student);
 
     List<StudentResponseDTO> asStudentResponseDtoList(List<Student> studentList);
-
-    Student asUpdatedStudent(StudentUpdateDTO course, @MappingTarget Student existingStudent);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Student asUpdatedStudent( @MappingTarget Student existingStudent,StudentUpdateDTO studentUpdateDTO);
 
 }

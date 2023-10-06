@@ -57,7 +57,10 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponseDTO> update(@PathVariable("id") long id, @RequestBody StudentUpdateDTO studentUpdateDTO) throws ResourceNotFoundException {
         Student existingStudent = studentService.getById(id);
-        Student updatedStudent = studentMapper.asUpdatedStudent(studentUpdateDTO, existingStudent);
+        log.info("existingStudent => {}",existingStudent);
+        log.info("studentUpdateDTO => {}",studentUpdateDTO);
+        Student updatedStudent = studentMapper.asUpdatedStudent( existingStudent,studentUpdateDTO);
+        log.info("updatedStudent => {}",updatedStudent);
         Student createdStudent = studentService.update(updatedStudent);
         StudentResponseDTO responseDTO = studentMapper.asStudentResponseDto(createdStudent);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);

@@ -2,52 +2,39 @@
   <div class="fixed inset-0 flex items-center justify-center z-50">
     <div class="modal-container">
       <div class="bg-white w-full max-w-md p-4 rounded-lg shadow-lg">
-        <div class="text-3xl font-semibold mb-6">Create Student</div>
+        <div class="text-3xl font-semibold mb-6">Create Course</div>
         <form @submit.prevent="onSubmit">
           <div class="mb-4">
-            <label for="firstName" class="block text-gray-600"
-              >First Name:</label
-            >
+            <label for="title" class="block text-gray-600">Title:</label>
             <input
-              v-bind="firstName"
+              v-bind="title"
               type="text"
-              id="lastname"
+              id="title"
               class="w-full border rounded px-3 py-2"
             />
-            <span class="text-red-600 mt-3">
-              {{ errors["student.firstName"] }}</span
-            >
+            <span class="text-red-600 mt-3"> {{ errors["course.title"] }}</span>
           </div>
           <div class="mb-4">
-            <label for="lastName" class="block text-gray-600">Last Name:</label>
+            <label for="description" class="block text-gray-600"
+              >Description:</label
+            >
             <input
-              v-bind="lastName"
+              v-bind="description"
               type="text"
-              id="firstname"
+              id="description"
               class="w-full border rounded px-3 py-2"
             />
             <span class="text-red-500 mt-3">
-              {{ errors["student.lastName"] }}</span
+              {{ errors["course.description"] }}</span
             >
           </div>
-          <div class="mb-4">
-            <label for="email" class="block text-gray-600">Email:</label>
-            <input
-              v-bind="email"
-              type="email"
-              id="email"
-              class="w-full border rounded px-3 py-2"
-            />
-            <span class="text-red-500 mt-3">
-              {{ errors["student.email"] }}</span
-            >
-          </div>
+
           <div class="flex justify-between mt-4">
             <button
               type="submit"
               class="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
-              Create Student
+              Create Course
             </button>
             <button
               type="button"
@@ -64,23 +51,22 @@
 </template>
 
 <script setup>
-import studentService from "../../services/student.service";
+import courseService from "../../services/course.service";
 import { reactive, ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 import { useToast } from "vue-toast-notification";
 
-// const student = ref({ lastname: "", firstname: "", email: "" });
+// const course = ref({ lastname: "", firstname: "", email: "" });
 const toast = useToast();
 const schema = yup.object({
-  student: yup.object({
-    firstName: yup.string().required().min(3).label("First Name"),
-    lastName: yup.string().required().label("Last Name"),
-    email: yup.string().email().required().min(5).label("Email"),
+  course: yup.object({
+    title: yup.string().required().min(4).label("Title"),
+    description: yup.string().required().min(4).label("Description"),
   }),
 });
 
-const initialValues = { lastName: "", firstName: "", email: "" };
+const initialValues = { description: "", title: "", email: "" };
 
 const {
   values,
@@ -94,9 +80,8 @@ const {
   initialValues: initialValues,
 });
 
-const firstName = defineInputBinds("student.firstName");
-const lastName = defineInputBinds("student.lastName");
-const email = defineInputBinds("student.email");
+const title = defineInputBinds("course.title");
+const description = defineInputBinds("course.description");
 
 const emit = defineEmits(["close"]);
 
@@ -108,8 +93,8 @@ const failValidation = ({ values, errors, results }) => {
 const onSubmit = handleSubmit(async (values) => {
   console.log("values = > ", values);
   try {
-    const response = await studentService.create(values.student);
-    toast.success("Student created successfully!", { position: "top-right" });
+    const response = await courseService.create(values.course);
+    toast.success("Course created successfully!", { position: "top-right" });
     close();
   } catch (error) {
     toast.error(error.message, { position: "top-right" });
