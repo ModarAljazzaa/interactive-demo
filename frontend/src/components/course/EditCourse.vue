@@ -51,8 +51,8 @@ const course = ref({ title: "", description: "", email: "" });
 import { Form, Field, ErrorMessage } from "vee-validate";
 const toast = useToast();
 const schema = yup.object({
-  title: yup.string().required().min(3).label("Title"),
-  description: yup.string().required().label("Description"),
+  title: yup.string().required().min(4).label("Title"),
+  description: yup.string().required().min(4).label("Description"),
 });
 
 const initialValues = course.value;
